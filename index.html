@@ -1,119 +1,189 @@
-<!DOCTYPE html><html lang="pt">
+<!DOCTYPE html>
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel de Comando – Ecossistema Cako Ceto</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel de Comando – Ecossistema DALA</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f4f8;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      background-color: #eef4fb;
     }
     header {
-      background: #1e3a8a;
+      background-color: #005792;
       color: white;
-      padding: 20px;
+      padding: 1rem;
       text-align: center;
+      position: relative;
     }
-    h1 {
-      margin: 0;
-      font-size: 28px;
+    header button {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      padding: 8px 12px;
+      border: none;
+      background: #ffffff55;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
     }
-    nav {
-      background: #e0e7ff;
-      padding: 10px;
+    #main {
       display: flex;
-      justify-content: center;
-      gap: 10px;
+      flex-direction: column;
+    }
+    #dashboard {
+      display: flex;
       flex-wrap: wrap;
     }
-    nav button {
-      background: #1e40af;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      cursor: pointer;
-      font-size: 16px;
+    #sidebar {
+      padding: 1rem;
+      background: #f9f9f9;
+      flex: 1 1 300px;
     }
-    nav button:hover {
-      background: #3b82f6;
+    .project-info {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .page {
-      display: none;
-      padding: 20px;
+    #map {
+      height: 400px;
+      flex: 1 1 400px;
     }
-    .active {
-      display: block;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      margin: 10px auto;
-      max-width: 600px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    #chartContainer {
+      background: #fff;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
     footer {
-      background: #1e3a8a;
-      color: white;
       text-align: center;
+      font-size: 12px;
       padding: 10px;
-      font-size: 14px;
-      margin-top: 30px;
+      background: #ccc;
+    }
+    nav a {
+      display: inline-block;
+      margin: 5px 10px;
+      padding: 8px 12px;
+      background: #005792;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    @media (min-width: 768px) {
+      #main {
+        flex-direction: row;
+      }
+      #map {
+        height: 500px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Painel de Comando – Ecossistema Cako Ceto</h1>
-    <p>Monitoramento, Expansão e Interação com os Projetos Transformadores</p>
-  </header>  <nav>
-    <button onclick="mostrar('visao')">🌍 Visão Global</button>
-    <button onclick="mostrar('projetos')">📂 Projetos</button>
-    <button onclick="mostrar('estatisticas')">📊 Estatísticas</button>
-    <button onclick="mostrar('expansao')">🧭 Expansão</button>
-    <button onclick="mostrar('apoio')">🤝 Apoio</button>
-  </nav>  <div id="visao" class="page active">
-    <div class="card">
-      <h2>🌟 Visão do Ecossistema</h2>
-      <p>O Cako Ceto é um ecossistema regenerativo, artístico e tecnológico criado para integrar projetos de impacto social, cultural e educativo em Angola e no mundo.</p>
+
+<header>
+  <h1>🗺️ Painel de Comando – Ecossistema DALA</h1>
+  <p>Monitoramento de Iniciativas | Inclusão | Saúde | Educação | Cultura</p>
+  <button onclick="toggleFullScreen()">🖥️ Modo Apresentação</button>
+</header>
+
+<nav>
+  <a href="https://dala35.github.io/TECLA-IA-INCLUSIVA/" target="_blank">🌈 TECLA</a>
+  <a href="https://dala35.github.io/SIMULADOR-KUALA-/" target="_blank">💉 VacTrack</a>
+  <a href="https://dala35.github.io/Painel-de-comando-Ecossistema-DALA-/" target="_blank">🧭 Este Painel</a>
+</nav>
+
+<div id="main">
+  <div id="sidebar">
+    <h2>📌 Projectos Ativos</h2>
+    <div class="project-info">
+      <h3>🎓 Cako Ceto – Luanda</h3>
+      <p>Formação em cultura, cidadania e tecnologia para jovens.</p>
+      <small>Status: Em formação</small>
     </div>
-  </div>  <div id="projetos" class="page">
-    <div class="card">
-      <h2>📂 Projetos Ativos</h2>
-      <ul>
-        <li>TECLA – Comunicação Inclusiva</li>
-        <li>VacTrack – Simulador de Vacinação</li>
-        <li>Cura BioAI CTX – Terapia e Diagnóstico Regenerativo</li>
-        <li>Centro Cako Ceto – Arte e Formação</li>
-        <li>Ideias que Inspiram – Juventude e Empreendedorismo</li>
-      </ul>
+    <div class="project-info">
+      <h3>🧠 TECLA – Bié</h3>
+      <p>Comunicação neurodiversa para crianças autistas sensíveis.</p>
+      <small>Status: Piloto</small>
     </div>
-  </div>  <div id="estatisticas" class="page">
-    <div class="card">
-      <h2>📊 Estatísticas de Impacto</h2>
-      <p>Em breve: Gráficos e indicadores automáticos sobre participantes, alcance e transformação.</p>
+    <div class="project-info">
+      <h3>💉 VacTrack – Huambo</h3>
+      <p>Planeamento de campanhas de vacinação com IA e simulação.</p>
+      <small>Status: Em execução</small>
     </div>
-  </div>  <div id="expansao" class="page">
-    <div class="card">
-      <h2>🧭 Mapa de Expansão</h2>
-      <p>Futuramente: mapa interativo com áreas já ativadas e novos pontos em desenvolvimento.</p>
+  </div>
+
+  <div id="dashboard">
+    <div id="map"></div>
+    <div id="chartContainer">
+      <canvas id="graficoStatus"></canvas>
     </div>
-  </div>  <div id="apoio" class="page">
-    <div class="card">
-      <h2>🤝 Central de Apoio</h2>
-      <p>Entre em contacto para colaborações, parcerias, suporte técnico ou mentoria.</p>
-      <p>Email: <strong>cako.ceto.os@gmail.com</strong></p>
-    </div>
-  </div>  <footer>
-    Criado por Dala De Carvalho ✊🏽 – 2025 – Cako Ceto OS
-  </footer>  <script>
-    const pages = document.querySelectorAll('.page');
-    function mostrar(id) {
-      pages.forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+  </div>
+</div>
+
+<footer>
+  Criado por Dala De Carvalho ✊🏽 – Junho 2025 | v1.1
+</footer>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([-11.2, 17.8], 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+  const projetos = [
+    { nome: "Cako Ceto – Luanda", coords: [-8.8383, 13.2344], status: "Em formação", emoji: "🎓" },
+    { nome: "TECLA – Bié", coords: [-12.5763, 17.6085], status: "Piloto", emoji: "🧠" },
+    { nome: "VacTrack – Huambo", coords: [-12.7761, 15.7395], status: "Em execução", emoji: "💉" }
+  ];
+
+  projetos.forEach(p => {
+    L.marker(p.coords)
+      .addTo(map)
+      .bindPopup(`<strong>${p.emoji} ${p.nome}</strong><br><em>Status: ${p.status}</em>`);
+  });
+
+  // GRÁFICO
+  const ctx = document.getElementById('graficoStatus').getContext('2d');
+  const statusCount = { "Em formação": 0, "Piloto": 0, "Em execução": 0 };
+  projetos.forEach(p => statusCount[p.status]++);
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(statusCount),
+      datasets: [{
+        label: "Distribuição de Projetos",
+        data: Object.values(statusCount),
+        backgroundColor: ['#f39c12', '#3498db', '#2ecc71'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
     }
-  </script></body>
+  });
+
+  // FULLSCREEN
+  function toggleFullScreen() {
+    const el = document.documentElement;
+    if (!document.fullscreenElement) {
+      el.requestFullscreen().catch(err => alert("Erro: " + err.message));
+    } else {
+      document.exitFullscreen();
+    }
+  }
+</script>
+
+</body>
 </html>
