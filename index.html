@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Comando – Ecossistema Cako Ceto</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #1e3a8a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    nav {
+      background: #e0e7ff;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    nav button {
+      background: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    nav button:hover {
+      background: #3b82f6;
+    }
+    .page {
+      display: none;
+      padding: 20px;
+    }
+    .active {
+      display: block;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 10px auto;
+      max-width: 600px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    footer {
+      background: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Painel de Comando – Ecossistema Cako Ceto</h1>
+    <p>Monitoramento, Expansão e Interação com os Projetos Transformadores</p>
+  </header>  <nav>
+    <button onclick="mostrar('visao')">🌍 Visão Global</button>
+    <button onclick="mostrar('projetos')">📂 Projetos</button>
+    <button onclick="mostrar('estatisticas')">📊 Estatísticas</button>
+    <button onclick="mostrar('expansao')">🧭 Expansão</button>
+    <button onclick="mostrar('apoio')">🤝 Apoio</button>
+  </nav>  <div id="visao" class="page active">
+    <div class="card">
+      <h2>🌟 Visão do Ecossistema</h2>
+      <p>O Cako Ceto é um ecossistema regenerativo, artístico e tecnológico criado para integrar projetos de impacto social, cultural e educativo em Angola e no mundo.</p>
+    </div>
+  </div>  <div id="projetos" class="page">
+    <div class="card">
+      <h2>📂 Projetos Ativos</h2>
+      <ul>
+        <li>TECLA – Comunicação Inclusiva</li>
+        <li>VacTrack – Simulador de Vacinação</li>
+        <li>Cura BioAI CTX – Terapia e Diagnóstico Regenerativo</li>
+        <li>Centro Cako Ceto – Arte e Formação</li>
+        <li>Ideias que Inspiram – Juventude e Empreendedorismo</li>
+      </ul>
+    </div>
+  </div>  <div id="estatisticas" class="page">
+    <div class="card">
+      <h2>📊 Estatísticas de Impacto</h2>
+      <p>Em breve: Gráficos e indicadores automáticos sobre participantes, alcance e transformação.</p>
+    </div>
+  </div>  <div id="expansao" class="page">
+    <div class="card">
+      <h2>🧭 Mapa de Expansão</h2>
+      <p>Futuramente: mapa interativo com áreas já ativadas e novos pontos em desenvolvimento.</p>
+    </div>
+  </div>  <div id="apoio" class="page">
+    <div class="card">
+      <h2>🤝 Central de Apoio</h2>
+      <p>Entre em contacto para colaborações, parcerias, suporte técnico ou mentoria.</p>
+      <p>Email: <strong>cako.ceto.os@gmail.com</strong></p>
+    </div>
+  </div>  <footer>
+    Criado por Dala De Carvalho ✊🏽 – 2025 – Cako Ceto OS
+  </footer>  <script>
+    const pages = document.querySelectorAll('.page');
+    function mostrar(id) {
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script></body>
+</html>
